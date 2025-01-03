@@ -1,19 +1,16 @@
 "use client";
-import Image from "next/image";
-import Index from "./components/Index";
 import UserInfo from "./components/UserInfo";
 import { useRef, useState } from "react";
-import Modal from "./components/Modal";
-import MyModal from "./components/Modal";
+import BookingDateTime from "./components/BookingDateTime";
+import TableBookedModal from "./components/Modal";
 
 export default function Home() {
   const [selectDateTime, setSelectDateTime] = useState({
     date: null,
     time: null,
   });
-  const [isRouteComponent, setisRouteComponent] = useState(true);
+  const [isDateTimeSelected, setIsDateTimeSelected] = useState(true);
   const [isShowUserInput, setIsShowUserInput] = useState(false);
-  const [isTimeSlot, setIsTimeSlot] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -26,11 +23,10 @@ export default function Home() {
     date: null,
     time: null,
   });
+
+
   const handleForm = async (e) => {
     e.preventDefault();
-    console.log(userName.current.value);
-    console.log(numberOfGuest.current.value);
-    console.log(contactNumber.current.value);
     setModalMessage({
       name: userName.current.value,
       numberOfGuest: numberOfGuest.current.value,
@@ -52,18 +48,16 @@ export default function Home() {
     if (res?.message) {
       handleOpen();
     }
-    setisRouteComponent(true);
+    setIsDateTimeSelected(true);
   };
 
   return (
     <>
-      {isRouteComponent ? (
-        <Index
+      {isDateTimeSelected ? (
+        <BookingDateTime
           selectDateTime={selectDateTime}
           setSelectDateTime={setSelectDateTime}
-          setisRouteComponent={setisRouteComponent}
-          isTimeSlot={isTimeSlot}
-          setIsTimeSlot={setIsTimeSlot}
+          setIsDateTimeSelected={setIsDateTimeSelected}
           setIsShowUserInput={setIsShowUserInput}
         />
       ) : (
@@ -73,11 +67,11 @@ export default function Home() {
           numberOfGuest={numberOfGuest}
           contactNumber={contactNumber}
           handleForm={handleForm}
-          setisRouteComponent={setisRouteComponent}
+          setIsDateTimeSelected={setIsDateTimeSelected}
           isShowUserInput={isShowUserInput}
         />
       )}
-      <MyModal
+      <TableBookedModal
         open={open}
         handleOpen={handleOpen}
         handleClose={handleClose}

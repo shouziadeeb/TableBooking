@@ -8,23 +8,18 @@ import { StaticDatePicker } from "@mui/x-date-pickers";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const Index = ({
+const BookingDateTime = ({
   selectDateTime,
   setSelectDateTime,
-  setisRouteComponent,
-  isTimeSlot,
-  setIsTimeSlot,
+  setIsDateTimeSelected,
   setIsShowUserInput,
 }) => {
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [bookingList, setBookingList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const [today, setToday] = useState();
-
-  console.log(selectDateTime);
-  // console.log(bookingList);
   const [view, setView] = useState("day");
+
   const timeSlotArray = [];
   for (let hour = 10; hour <= 17; hour++) {
     const timeSlot = `${hour}:00`;
@@ -33,7 +28,7 @@ const Index = ({
 
   const handleDateChange = async (changedDate) => {
     if (!changedDate) return;
-    setIsTimeSlot(true);
+    // setIsTimeSlot(true);
     const date = changedDate.format("YYYY-MM-DD");
     const bookings = await fetchBookings(date);
 
@@ -51,6 +46,7 @@ const Index = ({
     setIsLoading(false);
     return data.bookedSlots ?? [];
   };
+  
 
   useEffect(() => {
     async function getTodaysBookings() {
@@ -66,7 +62,7 @@ const Index = ({
 
   const handleTime = (time) => {
     setSelectDateTime((prev) => ({ ...prev, time: time }));
-    setisRouteComponent(false);
+    setIsDateTimeSelected(false);
     setIsShowUserInput(true);
   };
 
@@ -85,7 +81,7 @@ const Index = ({
                 className="custom-date-picker"
                 minDate={dayjs(today)}
                 slots={{
-                  actionBar: () => null, // Remove OK and Cancel buttons
+                  actionBar: () => null, 
                 }}
               />
             </LocalizationProvider>
@@ -96,8 +92,6 @@ const Index = ({
                   <Skeleton
                     key={index}
                     variant="rectangular"
-                    // width={140}
-                    // height={40}
                     style={{ margin: "5px" }}
                     className="skeleton"
                   />
@@ -135,4 +129,4 @@ const Index = ({
   );
 };
 
-export default Index;
+export default BookingDateTime;

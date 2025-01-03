@@ -33,7 +33,7 @@ export default function Home() {
       date: selectDateTime.date,
       time: selectDateTime.time,
     });
-    const response = await fetch('https://table-booking-pied.vercel.app/api/bookings', {
+    const response = await fetch('api/bookings', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

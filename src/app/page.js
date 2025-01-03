@@ -44,7 +44,6 @@ export default function Home() {
       }),
     });
     const res = await response.json();
-    console.log(res);
     if (res?.message) {
       handleOpen();
     }

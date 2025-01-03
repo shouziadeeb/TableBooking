@@ -41,7 +41,7 @@ const BookingDateTime = ({
 
   const fetchBookings = async (date) => {
     setIsLoading(true);
-    const response = await fetch(`https://table-booking-pied.vercel.app/api/bookings?date=${date}`);
+    const response = await fetch(`api/bookings?date=${date}`);
     const data = await response.json();
     setIsLoading(false);
     return data.bookedSlots ?? [];

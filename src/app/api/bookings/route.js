@@ -1,7 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 
-const bookingsFilePath = path.join(process.cwd(), "bookings.json");
+const bookingsFilePath = path.join("/tmp", "bookings.json");
 
 const readBookingsFile = async () => {
   try {
